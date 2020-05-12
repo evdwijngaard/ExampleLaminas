@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+?>
+
+<h1>Add a blog post</h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url());
+echo $this->partial('blog/write/form', [
+    'form' => $form,
+    'submitLabel' => 'Insert new post',
+]);
