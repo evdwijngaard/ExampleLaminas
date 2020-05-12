@@ -87,6 +87,10 @@ return [
                         'action' => 'delete',
                     ],
                 ],
+            ],    
+            [
+                'label' => 'Blog',
+                'route' => 'blog',
             ],
         ],
     ],

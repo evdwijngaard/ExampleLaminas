@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+
+
+// This navigation partial script is to compensate the fact that Laminas Navigate 
+// has no option to set LI class
+?>
+
+<ul class="nav navbar-nav">
+
+    <?php foreach ($this->container as $page): ?> 
+        <li class="nav-item active">
+            <a class="nav-link" 
+            <?php echo $this->navigation()->menu()->htmlify($page) . PHP_EOL; ?>
+            <span class="sr-only">(current)
+            </span>
+            </a>
+        </li> 
+    <?php endforeach; ?>
+</ul
