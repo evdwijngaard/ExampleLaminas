@@ -9,14 +9,41 @@
 ?>
 
 <ul class="nav navbar-nav">
-
-    <?php foreach ($this->container as $page): ?> 
-        <li class="nav-item active">
-            <a class="nav-link" 
+<?php $count = 0 ?>
+<?php foreach ($this->container as $page): ?> 
+    
+<?php // when using partials we need to manually check for ACL conditions ?>
+<?php //if( ! $child->isVisible() || !$this->navigation()->accept($child)) continue; ?>
+    
+<?php $hasChildren = $page->hasPages() ?>
+<?php if( ! $hasChildren): ?>
+    <li class="nav-item <?php if($page->isActive()) echo 'active'?>">
+        <a class="nav-link" 
             <?php echo $this->navigation()->menu()->htmlify($page) . PHP_EOL; ?>
-            <span class="sr-only">(current)
-            </span>
-            </a>
-        </li> 
-    <?php endforeach; ?>
+            <span class="sr-only">(current)</span>
+        </a>
+    </li> 
+<?php else: ?>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_<?php echo $count ?>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <?php echo $page->getLabel() . PHP_EOL; ?>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown_<?php echo $count ?>">
+<?php foreach($page->getPages() as $child): ?>
+
+<?php // when using partials we need to manually check for ACL conditions ?>
+<?php //if( ! $child->isVisible() || !$this->navigation()->accept($child)) continue; ?>
+            
+          <a class="dropdown-item" 
+            <?php echo $this->navigation()->menu()->htmlify($child) . PHP_EOL; ?>
+            <span class="sr-only">(current)</span>
+          </a>
+<?php endforeach; ?>
+        </div>
+    </li>
+    
+<?php $count++ ?>
+<?php endif; ?>
+<?php endforeach; ?>
+
 </ul
